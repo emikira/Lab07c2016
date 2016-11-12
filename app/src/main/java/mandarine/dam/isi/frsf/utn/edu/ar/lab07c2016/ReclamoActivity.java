@@ -9,23 +9,25 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ReclamoActivity extends AppCompatActivity {
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+
+public class ReclamoActivity extends AppCompatActivity implements OnMapReadyCallback{
+
+    private GoogleMap myMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reclamo);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        SupportMapFragment mapFragment = (SupportMapFragment)
+                getSupportFragmentManager()
+                        .findFragmentById(R.id.map);
+
+        mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -48,5 +50,11 @@ public class ReclamoActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        myMap=googleMap;
+
     }
 }
